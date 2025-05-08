@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ThemeToggle from './ThemToggle';
 const Navbar = () => {
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
@@ -9,6 +9,7 @@ const Navbar = () => {
           <li><a href="#how" className="hover:text-indigo-500">How It Works</a></li>
             <li><a href="#why" className="hover:text-indigo-500">Why Choose Us</a></li>
           <li><a href="#testimonials" className="hover:text-indigo-500">Testimonials</a></li>
+          <ThemeToggle />
         </ul>
       </nav>
     </header>

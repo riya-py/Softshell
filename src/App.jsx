@@ -10,7 +10,10 @@ import ChatWidget from './components/ChatWidget';
 
 const App = () => {
   return (
-    <main className="bg-white text-gray-800">
+    <div className="bg-white text-black dark:bg-black dark:text-white transition-colors">
+
+
+
       <Navbar />
       <Hero />
       <section id="how"><HowItWorks /></section>
@@ -19,7 +22,7 @@ const App = () => {
       <ContactForm />
       <ChatWidget />
       <Footer />
-    </main>
+      </div>
   );
 };
 
