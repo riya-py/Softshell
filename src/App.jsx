@@ -22,7 +22,7 @@ const App = () => {
       <ContactForm />
       <ChatWidget />
       <Footer />
-      </div>
+   </div>
   );
 };
 

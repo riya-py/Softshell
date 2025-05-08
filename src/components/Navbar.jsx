@@ -1,5 +1,5 @@
 import React from 'react';
-import ThemeToggle from './ThemToggle';
+import ThemeToggle from './ThemeToggle';
 const Navbar = () => {
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
