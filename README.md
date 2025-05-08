@@ -117,8 +117,7 @@ GitHub: [@riya-py](https://github.com/riya-py)
 ## Final Words
 
 This assignment was a pleasure to build.  
-Thanks, Credex, for the opportunity!  
-Hoping to stand out.
+Thanks Credex, for the opportunity!  
 
 ---
 
