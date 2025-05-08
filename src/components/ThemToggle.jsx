@@ -24,7 +24,7 @@ export default function ThemeToggle() {
       onClick={toggleTheme}
       className="p-2 bg-gray-200 dark:bg-gray-800 text-sm rounded-lg transition"
     >
-      {theme === 'dark' ? '🌞 Light Mode' : '🌙 Dark Mode'}
+      {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
     </button>
   );
 }
