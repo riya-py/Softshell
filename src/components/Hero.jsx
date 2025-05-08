@@ -85,7 +85,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white min-h-screen flex flex-col items-center justify-center px-6 md:px-16 py-16 relative overflow-hidden">
+    <section className="bg-gradient-to-br from-gray-100 via-gray-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-black text-gray-800 dark:text-white min-h-screen flex flex-col items-center justify-center px-6 md:px-16 py-16 relative overflow-hidden">
       {/* Background decorative elements */}
       <motion.div 
         className="absolute top-0 left-0 w-full h-full overflow-hidden"
@@ -94,7 +94,7 @@ const Hero = () => {
         variants={backgroundCircles}
       >
         <motion.div 
-          className="absolute top-10 left-10 w-64 h-64 rounded-full bg-indigo-600 blur-3xl"
+          className="absolute top-10 left-10 w-64 h-64 rounded-full bg-blue-200 dark:bg-indigo-600 blur-3xl"
           animate={{ 
             x: [0, 10, 0],
             y: [0, 15, 0],
@@ -106,7 +106,7 @@ const Hero = () => {
           }}
         ></motion.div>
         <motion.div 
-          className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-purple-700 blur-3xl"
+          className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-purple-200 dark:bg-purple-700 blur-3xl"
           animate={{ 
             x: [0, -15, 0],
             y: [0, -10, 0],
@@ -130,7 +130,7 @@ const Hero = () => {
             variants={staggerChildren}
           >
             <motion.div 
-              className="inline-block px-4 py-1 rounded-full bg-indigo-900/50 text-indigo-300 text-sm font-medium mb-6"
+              className="inline-block px-4 py-1 rounded-full bg-blue-100 dark:bg-indigo-900/50 text-blue-700 dark:text-indigo-300 text-sm font-medium mb-6"
               variants={fadeIn}
             >
               Trusted by 10,000+ customers worldwide
@@ -142,9 +142,9 @@ const Hero = () => {
             >
               Sell Unused Software Licenses 
               <motion.span 
-                className="text-indigo-400"
+                className="text-blue-600 dark:text-indigo-400"
                 animate={{ 
-                  color: ["#818cf8", "#a5b4fc", "#818cf8"],
+                  color: ["#3b82f6", "#60a5fa", "#3b82f6"],
                 }}
                 transition={{ 
                   duration: 3, 
@@ -155,7 +155,7 @@ const Hero = () => {
             </motion.h1>
             
             <motion.p 
-              className="text-base sm:text-lg md:text-xl max-w-2xl mb-8 text-gray-300"
+              className="text-base sm:text-lg md:text-xl max-w-2xl mb-8 text-gray-600 dark:text-gray-300"
               variants={fadeIn}
             >
               SoftShell is your trusted resale platform for turning inactive software into real value. Fast, easy and 100% secure.
@@ -166,7 +166,7 @@ const Hero = () => {
               variants={staggerChildren}
             >
               <motion.button 
-                className="bg-indigo-600 hover:bg-indigo-500 transition-all text-white font-semibold py-3 px-8 rounded-xl shadow-lg flex items-center justify-center gap-2"
+                className="bg-blue-600 hover:bg-blue-500 dark:bg-indigo-600 dark:hover:bg-indigo-500 transition-all text-white font-semibold py-3 px-8 rounded-xl shadow-lg flex items-center justify-center gap-2"
                 variants={fadeIn}
                 whileHover={buttonHover}
                 whileTap={{ scale: 0.95 }}
@@ -191,7 +191,7 @@ const Hero = () => {
                 </motion.svg>
               </motion.button>
               <motion.button 
-                className="bg-white text-gray-900 hover:bg-gray-100 transition-all font-semibold py-3 px-8 rounded-xl shadow-lg"
+                className="bg-gray-200 dark:bg-white text-gray-900 hover:bg-gray-300 dark:hover:bg-gray-100 transition-all font-semibold py-3 px-8 rounded-xl shadow-lg"
                 variants={fadeIn}
                 whileHover={buttonHover}
                 whileTap={{ scale: 0.95 }}
@@ -229,15 +229,16 @@ const Hero = () => {
                   whileHover={{ scale: 1.05 }}
                 >
                   <motion.div 
-                    className="p-2 rounded-full bg-indigo-900/50"
+                    className="p-2 rounded-full bg-blue-100 dark:bg-indigo-900/50"
                     whileHover={{ 
-                      backgroundColor: "rgba(79, 70, 229, 0.3)",
+                      backgroundColor: "rgba(219, 234, 254, 0.5)",
+                      dark: { backgroundColor: "rgba(79, 70, 229, 0.3)" },
                       transition: { duration: 0.2 }
                     }}
                   >
                     <motion.svg 
                       xmlns="http://www.w3.org/2000/svg" 
-                      className="h-5 w-5 text-indigo-300" 
+                      className="h-5 w-5 text-blue-600 dark:text-indigo-300" 
                       fill="none" 
                       viewBox="0 0 24 24" 
                       stroke="currentColor"
@@ -251,7 +252,7 @@ const Hero = () => {
                       {badge.icon}
                     </motion.svg>
                   </motion.div>
-                  <span className="text-gray-300 font-medium">{badge.text}</span>
+                  <span className="text-gray-700 dark:text-gray-300 font-medium">{badge.text}</span>
                 </motion.div>
               ))}
             </motion.div>
@@ -265,15 +266,19 @@ const Hero = () => {
             animate="visible"
           >
             <motion.div 
-              className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-2xl shadow-xl border border-gray-700"
+              className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 p-6 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700"
               whileHover={{ 
-                boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)",
-                borderColor: "rgba(99, 102, 241, 0.4)",
+                boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                borderColor: "rgba(59, 130, 246, 0.4)",
+                dark: {
+                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)",
+                  borderColor: "rgba(99, 102, 241, 0.4)"
+                },
                 transition: { duration: 0.2 }
               }}
             >
               <motion.div 
-                className="bg-indigo-600/10 p-8 rounded-xl border border-indigo-500/20 mb-4"
+                className="bg-blue-50 dark:bg-indigo-600/10 p-8 rounded-xl border border-blue-200 dark:border-indigo-500/20 mb-4"
                 initial="hidden"
                 animate="visible"
                 variants={fadeIn}
@@ -289,18 +294,19 @@ const Hero = () => {
                   ].map((item, index) => (
                     <motion.div 
                       key={index} 
-                      className={`flex justify-between items-center ${index < 2 ? 'pb-4 border-b border-gray-700' : ''}`}
+                      className={`flex justify-between items-center ${index < 2 ? 'pb-4 border-b border-gray-200 dark:border-gray-700' : ''}`}
                       variants={priceReveal}
                       whileHover={{ 
-                        backgroundColor: "rgba(79, 70, 229, 0.1)",
+                        backgroundColor: "rgba(219, 234, 254, 0.4)",
+                        dark: { backgroundColor: "rgba(79, 70, 229, 0.1)" },
                         borderRadius: "0.5rem",
                         padding: "0.5rem",
                         transition: { duration: 0.2 }
                       }}
                     >
-                      <span className="font-semibold text-gray-300">{item.software}</span>
+                      <span className="font-semibold text-gray-700 dark:text-gray-300">{item.software}</span>
                       <motion.span 
-                        className="text-indigo-400 font-bold text-xl"
+                        className="text-blue-600 dark:text-indigo-400 font-bold text-xl"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.8 + (index * 0.3) }}
@@ -312,16 +318,16 @@ const Hero = () => {
                 </motion.div>
               </motion.div>
               <motion.div 
-                className="text-center p-4 bg-indigo-600/20 rounded-lg"
+                className="text-center p-4 bg-blue-50 dark:bg-indigo-600/20 rounded-lg"
                 variants={fadeInUp}
               >
                 <motion.p 
-                  className="text-lg font-medium text-gray-300"
+                  className="text-lg font-medium text-gray-700 dark:text-gray-300"
                 >
                   Average customer earnings
                 </motion.p>
                 <motion.p 
-                  className="text-3xl font-bold text-white mt-1"
+                  className="text-3xl font-bold text-gray-900 dark:text-white mt-1"
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ 
                     opacity: 1, 
