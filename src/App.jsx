@@ -12,8 +12,6 @@ const App = () => {
   return (
     <div className="bg-white text-black dark:bg-black dark:text-white transition-colors">
 
-
-
       <Navbar />
       <Hero />
       <section id="how"><HowItWorks /></section>
