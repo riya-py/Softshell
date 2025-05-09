@@ -88,7 +88,7 @@ const Navbar = () => {
               ease: "easeInOut"
             }}
           >
-            SoftShell
+            SoftSell
           </motion.span>
         </motion.h1>
         
