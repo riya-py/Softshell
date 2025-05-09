@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaComments, FaPaperPlane, FaTimes } from 'react-icons/fa';
-import config from '../../config'; // Import the configuration file
+import config from '../../config'; 
 
 const ChatWidget = () => {
   const [open, setOpen] = useState(false);
