@@ -108,7 +108,6 @@ Build a clean, modern, and responsive single-page marketing website for a fictio
 
 ## Author
 
-**[Your Name]**  
 GitHub: [@riya-py](https://github.com/riya-py)  
 [LinkedIn](https://www.linkedin.com/in/riyark006/)
 

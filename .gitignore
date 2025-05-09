@@ -21,6 +21,12 @@ dist-ssr
 *.sln
 *.sw?
 
+*.user
+*.userosscache
+*.sln.docstates
+*.sln.ide
+.json
+
 # env files
 # dotenv environment variables file
 .env
