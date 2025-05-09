@@ -1,27 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaComments, FaPaperPlane, FaTimes, FaTrash } from 'react-icons/fa';
-import config from '../config'; 
-import { formatMessageDate } from '../utils/dateUtils'; // Utility function to format message date
+import { FaComments, FaPaperPlane, FaTimes } from 'react-icons/fa';
 
 const ChatWidget = () => {
-  // Use configuration values from config.js
-  const [open, setOpen] = useState(config.behavior.initiallyOpen);
+  const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Get quick questions from config
-  const quickQuestions = config.quickQuestions;
-  
-  // Load chat history from localStorage on component mount
-  useEffect(() => {
-    const savedMessages = loadChatHistory();
-    if (savedMessages && savedMessages.length > 0) {
-      setMessages(savedMessages);
-    }
-  }, []);
+  // Sample quick questions
+  const quickQuestions = [
+    "How do I sell my license?",
+    "What payment methods do you accept?",
+    "How can I contact support?",
+    "What is your refund policy?"
+  ];
 
   // Scroll to bottom when messages update
   useEffect(() => {
@@ -34,61 +28,55 @@ const ChatWidget = () => {
 
   // Handle sending messages
   const handleSendMessage = async (content) => {
-    const userMessage = { 
-      role: 'user', 
-      content: content || inputValue,
-      timestamp: new Date().toISOString()
-    };
-    
-    const updatedMessages = [...messages, userMessage];
-    setMessages(updatedMessages);
-    saveChatHistory(updatedMessages);
-    
+    const userMessage = { role: 'user', content: content || inputValue };
+    setMessages(prev => [...prev, userMessage]);
     setInputValue('');
     setIsLoading(true);
 
     try {
-      // Using the API endpoint from config
-      const response = await fetch(config.apiEndpoint, {
+      // Using a free AI API (Hugging Face Inference API)
+      // You'll need to replace this with your own API key if you want to use a different service
+      const response = await fetch('https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer hf_xxx' // Replace with your Hugging Face API key
         },
-        body: JSON.stringify({ 
-          message: content || inputValue,
-          history: messages 
-        }),
+        body: JSON.stringify({ inputs: content || inputValue }),
       });
-
-      if (!response.ok) {
-        throw new Error('API request failed');
-      }
 
       const result = await response.json();
       
-      const assistantMessage = { 
-        role: 'assistant', 
-        content: result.content || "I'm sorry, I couldn't process that request. Please try again.",
-        timestamp: new Date().toISOString()
-      };
+      // If using the mocked response instead of a real API:
+      // await new Promise(resolve => setTimeout(resolve, 1000));
+      // const result = { generated_text: mockResponse(content || inputValue) };
       
-      const newMessages = [...updatedMessages, assistantMessage];
-      setMessages(newMessages);
-      saveChatHistory(newMessages);
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: result.generated_text || "I'm sorry, I couldn't process that request. Please try again." 
+      }]);
     } catch (error) {
       console.error('Error calling AI API:', error);
-      const errorMessage = { 
+      setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: "I'm sorry, I'm having trouble connecting right now. Please try again later.",
-        timestamp: new Date().toISOString()
-      };
-      
-      const newMessages = [...updatedMessages, errorMessage];
-      setMessages(newMessages);
-      saveChatHistory(newMessages);
+        content: "I'm sorry, I'm having trouble connecting right now. Please try again later."
+      }]);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Mock response function - use this if you want to avoid using an external API
+  const mockResponse = (input) => {
+    const responses = {
+      "How do I sell my license?": "To sell your license, go to your account dashboard, select the license you want to sell, and click on the 'Transfer License' option. Follow the instructions to complete the transfer.",
+      "What payment methods do you accept?": "We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and bank transfers for business accounts.",
+      "How can I contact support?": "You can contact our support team by email at support@example.com or use the help center on our website. Our support hours are Monday to Friday, 9 AM to 6 PM EST.",
+      "What is your refund policy?": "We offer a 30-day money-back guarantee on all purchases. If you're not satisfied with our product, you can request a full refund within 30 days of purchase."
+    };
+
+    return responses[input] || 
+      "I'm here to help! If you have questions about our products, licenses, or anything else, feel free to ask.";
   };
 
   // Handle form submission
@@ -103,19 +91,12 @@ const ChatWidget = () => {
   const handleQuickQuestionClick = (question) => {
     handleSendMessage(question);
   };
-  
-  // Clear chat history
-  const handleClearChat = () => {
-    setMessages([]);
-    clearChatHistory();
-  };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end">
       <motion.button
         onClick={() => setOpen(!open)}
-        className="bg-indigo-600 dark:bg-indigo-800
-hover:bg-indigo-700 dark:hover:bg-indigo-900 text-white p-4 rounded-full shadow-lg transition-all duration-300"
+        className="bg-indigo-600 dark:bg-indigo-800 hover:bg-indigo-700 dark:hover:bg-indigo-900 text-white p-4 rounded-full shadow-lg transition-all duration-300"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -132,21 +113,11 @@ hover:bg-indigo-700 dark:hover:bg-indigo-900 text-white p-4 rounded-full shadow-
             className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl mt-4 w-80 sm:w-96 overflow-hidden"
           >
             {/* Chat header */}
-            <div className={`bg-${config.appearance.primaryColor}-600 dark:bg-gray-900 text-white p-4 flex justify-between items-center`}>
+            <div className="bg-indigo-600 dark:bg-gray-900 text-white p-4 flex justify-between items-center">
               <h3 className="font-medium">Customer Support</h3>
-              <div className="flex items-center space-x-2">
-                {messages.length > 0 && (
-                  <button
-                    onClick={handleClearChat}
-                    title="Clear chat history"
-                    className="p-1 rounded-full hover:bg-opacity-30 hover:bg-white transition-colors"
-                  >
-                    <FaTrash size={14} />
-                  </button>
-                )}
+              <div className="flex items-center">
                 <button
                   onClick={() => setOpen(false)}
-                  title="Close chat"
                   className="p-1 rounded-full hover:bg-opacity-30 hover:bg-white transition-colors"
                 >
                   <FaTimes />
@@ -193,18 +164,11 @@ hover:bg-indigo-700 dark:hover:bg-indigo-900 text-white p-4 rounded-full shadow-
                       <div
                         className={`max-w-3/4 rounded-lg px-4 py-2 ${
                           message.role === 'user'
-                            ? `bg-${config.appearance.primaryColor}-600 dark:bg-${config.appearance.primaryColor}-700 text-white`
+                            ? 'bg-indigo-600 dark:bg-indigo-700 text-white'
                             : 'bg-white dark:bg-gray-700 text-gray-800 dark:text-white border border-gray-200 dark:border-gray-600'
                         }`}
                       >
-                        <div>
-                          {message.content}
-                          {message.timestamp && (
-                            <div className="text-xs opacity-70 mt-1 text-right">
-                              {formatMessageDate(message.timestamp)}
-                            </div>
-                          )}
-                        </div>
+                        {message.content}
                       </div>
                     </motion.div>
                   ))}
@@ -247,14 +211,14 @@ hover:bg-indigo-700 dark:hover:bg-indigo-900 text-white p-4 rounded-full shadow-
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Type your message..."
-                className={`flex-1 py-2 px-3 rounded-l-lg focus:outline-none bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-white focus:ring-1 focus:ring-${config.appearance.primaryColor}-500`}
+                className="flex-1 py-2 px-3 rounded-l-lg focus:outline-none bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-white focus:ring-1 focus:ring-indigo-500"
               />
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 type="submit"
                 disabled={!inputValue.trim() || isLoading}
-                className={`bg-${config.appearance.primaryColor}-600 dark:bg-${config.appearance.primaryColor}-700 hover:bg-${config.appearance.primaryColor}-700 dark:hover:bg-${config.appearance.primaryColor}-800 text-white p-2 rounded-r-lg disabled:opacity-50 disabled:cursor-not-allowed`}
+                className="bg-indigo-600 dark:bg-indigo-700 hover:bg-indigo-700 dark:hover:bg-indigo-800 text-white p-2 rounded-r-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <FaPaperPlane />
               </motion.button>
