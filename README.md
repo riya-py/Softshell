@@ -80,7 +80,7 @@ Build a clean, modern, and responsive single-page marketing website for a fictio
 
 ## Deployment
 
-**Live Demo**: [https://your-live-site-url.com](https://your-live-site-url.com)  
+**Live Demo**: [https://softsell-delta-mauve.vercel.app/](https://softsell-delta-mauve.vercel.app/)  
 **GitHub Repo**: [https://github.com/riya-py/Softsell](https://github.com/riya-py/Softsell)
 
 ---
