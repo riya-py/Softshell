@@ -34,26 +34,27 @@ const ChatWidget = () => {
     setIsLoading(true);
 
     try {
-      // Using a free AI API (Hugging Face Inference API)
-      // You'll need to replace this with your own API key if you want to use a different service
-      const response = await fetch('https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill', {
+      // Using OpenAI API
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer hf_xxx' // Replace with your Hugging Face API key
         },
-        body: JSON.stringify({ inputs: content || inputValue }),
+        body: JSON.stringify({ 
+          message: content || inputValue,
+          history: messages 
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
 
       const result = await response.json();
       
-      // If using the mocked response instead of a real API:
-      // await new Promise(resolve => setTimeout(resolve, 1000));
-      // const result = { generated_text: mockResponse(content || inputValue) };
-      
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: result.generated_text || "I'm sorry, I couldn't process that request. Please try again." 
+        content: result.content || "I'm sorry, I couldn't process that request. Please try again." 
       }]);
     } catch (error) {
       console.error('Error calling AI API:', error);
@@ -64,19 +65,6 @@ const ChatWidget = () => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  // Mock response function - use this if you want to avoid using an external API
-  const mockResponse = (input) => {
-    const responses = {
-      "How do I sell my license?": "To sell your license, go to your account dashboard, select the license you want to sell, and click on the 'Transfer License' option. Follow the instructions to complete the transfer.",
-      "What payment methods do you accept?": "We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and bank transfers for business accounts.",
-      "How can I contact support?": "You can contact our support team by email at support@example.com or use the help center on our website. Our support hours are Monday to Friday, 9 AM to 6 PM EST.",
-      "What is your refund policy?": "We offer a 30-day money-back guarantee on all purchases. If you're not satisfied with our product, you can request a full refund within 30 days of purchase."
-    };
-
-    return responses[input] || 
-      "I'm here to help! If you have questions about our products, licenses, or anything else, feel free to ask.";
   };
 
   // Handle form submission
