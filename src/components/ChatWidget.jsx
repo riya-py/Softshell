@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaComments, FaPaperPlane, FaTimes, FaTrash } from 'react-icons/fa';
-import { saveChatHistory, loadChatHistory, clearChatHistory, formatMessageDate } from '../utils/chatUtils';
-import config from '../config'; // Import configuration values
+import config from '../config'; 
+import { formatMessageDate } from '../utils/dateUtils'; // Utility function to format message date
 
 const ChatWidget = () => {
   // Use configuration values from config.js
