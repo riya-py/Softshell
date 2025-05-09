@@ -74,13 +74,7 @@ Build a clean, modern, and responsive single-page marketing website for a fictio
 - SEO Meta Tags + Page Title
 - Smooth light/dark mode toggle
 - Framer Motion section animations
-- (Optional/Planned): AI-powered Chat Widget using OpenAI API or Langchain *(mocked/hardcoded questions)*
-
----
-
-## Screenshots
-
-*(Add screenshots here if needed)*
+- (Planned): AI-powered Chat Widget using OpenAI API 
 
 ---
 
