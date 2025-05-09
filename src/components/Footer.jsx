@@ -114,7 +114,7 @@ const Footer = () => {
             className="text-center text-sm text-gray-500 dark:text-gray-400"
             variants={contentVariants}
           >
-            &copy; {currentYear} SoftShell. All rights reserved.
+            &copy; {currentYear} SoftSell. All rights reserved.
           </motion.p>
           
           <motion.div 
